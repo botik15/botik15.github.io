@@ -54,7 +54,7 @@ async def cmd_info(message: types.Message, started_at: str):
 mylist=[1, 2, 3]
 
 # Запуск процесса поллинга новых апдейтов
-async def main():
+async def main(mylist):
     await dp.start_polling(bot, mylist)
 
 if __name__ == "__main__":
