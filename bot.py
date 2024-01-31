@@ -127,6 +127,10 @@ async def cmd_random(message: types.Message):
     )
 
 
+@dp.callback_query(F.data == "random_value")
+async def send_random_value(callback: types.CallbackQuery):
+    await callback.message.answer(str(randint(1, 10)))
+
 
 
 # Запуск процесса поллинга новых апдейтов
