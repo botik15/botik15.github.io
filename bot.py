@@ -24,6 +24,10 @@ async def cmd_test1(message: types.Message):
 @dp.message(Command("test2"))
 async def cmd_test2(message: types.Message):
     await message.reply("Test 2")
+
+@dp.message(Command("dice"))
+async def cmd_dice(message: types.Message):
+    await message.answer_dice(emoji="🎲")
     
 # Запуск процесса поллинга новых апдейтов
 async def main():
