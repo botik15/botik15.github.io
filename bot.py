@@ -111,39 +111,20 @@ dp = Dispatcher()
 
 
 
-
-
-# новый импорт
+# новый импорт!
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-@dp.message(Command("inline_url"))
-async def cmd_inline_url(message: types.Message, bot: Bot):
+@dp.message(Command("random"))
+async def cmd_random(message: types.Message):
     builder = InlineKeyboardBuilder()
-    builder.row(types.InlineKeyboardButton(
-        text="GitHub", url="https://github.com")
+    builder.add(types.InlineKeyboardButton(
+        text="Нажми меня",
+        callback_data="random_value")
     )
-    builder.row(types.InlineKeyboardButton(
-        text="Оф. канал Telegram",
-        url="tg://resolve?domain=telegram")
-    )
-
-    # Чтобы иметь возможность показать ID-кнопку,
-    # У юзера должен быть False флаг has_private_forwards
-    user_id = 1234567890
-    chat_info = await bot.get_chat(user_id)
-    if not chat_info.has_private_forwards:
-        builder.row(types.InlineKeyboardButton(
-            text="Какой-то пользователь",
-            url=f"tg://user?id={user_id}")
-        )
-
     await message.answer(
-        'Выберите ссылку',
-        reply_markup=builder.as_markup(),
+        "Нажмите на кнопку, чтобы бот отправил число от 1 до 10",
+        reply_markup=builder.as_markup()
     )
-
-
-
 
 
 
