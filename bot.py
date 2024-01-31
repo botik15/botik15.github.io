@@ -61,48 +61,98 @@ dp = Dispatcher()
 
 
 
-# новый импорт!
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+# # новый импорт!
+# from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-@dp.message(Command("special_buttons"))
-async def cmd_special_buttons(message: types.Message):
-    builder = ReplyKeyboardBuilder()
-    # метод row позволяет явным образом сформировать ряд
-    # из одной или нескольких кнопок. Например, первый ряд
-    # будет состоять из двух кнопок...
-    builder.row(
-        types.KeyboardButton(text="Запросить геолокацию", request_location=True),
-        types.KeyboardButton(text="Запросить контакт", request_contact=True)
+# @dp.message(Command("special_buttons"))
+# async def cmd_special_buttons(message: types.Message):
+#     builder = ReplyKeyboardBuilder()
+#     # метод row позволяет явным образом сформировать ряд
+#     # из одной или нескольких кнопок. Например, первый ряд
+#     # будет состоять из двух кнопок...
+#     builder.row(
+#         types.KeyboardButton(text="Запросить геолокацию", request_location=True),
+#         types.KeyboardButton(text="Запросить контакт", request_contact=True)
+#     )
+#     # ... второй из одной ...
+#     builder.row(types.KeyboardButton(
+#         text="Создать викторину",
+#         request_poll=types.KeyboardButtonPollType(type="quiz"))
+#     )
+#     # ... а третий снова из двух
+#     builder.row(
+#         types.KeyboardButton(
+#             text="Выбрать премиум пользователя",
+#             request_user=types.KeyboardButtonRequestUser(
+#                 request_id=1,
+#                 user_is_premium=True
+#             )
+#         ),
+#         types.KeyboardButton(
+#             text="Выбрать супергруппу с форумами",
+#             request_chat=types.KeyboardButtonRequestChat(
+#                 request_id=2,
+#                 chat_is_channel=False,
+#                 chat_is_forum=True
+#             )
+#         )
+#     )
+#     # WebApp-ов пока нет, сорри :(
+
+#     await message.answer(
+#         "Выберите действие:",
+#         reply_markup=builder.as_markup(resize_keyboard=True),
+#     )
+
+
+
+
+
+
+
+
+
+
+
+
+# новый импорт
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
+@dp.message(Command("inline_url"))
+async def cmd_inline_url(message: types.Message, bot: Bot):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(
+        text="GitHub", url="https://github.com")
     )
-    # ... второй из одной ...
-    builder.row(types.KeyboardButton(
-        text="Создать викторину",
-        request_poll=types.KeyboardButtonPollType(type="quiz"))
+    builder.row(types.InlineKeyboardButton(
+        text="Оф. канал Telegram",
+        url="tg://resolve?domain=telegram")
     )
-    # ... а третий снова из двух
-    builder.row(
-        types.KeyboardButton(
-            text="Выбрать премиум пользователя",
-            request_user=types.KeyboardButtonRequestUser(
-                request_id=1,
-                user_is_premium=True
-            )
-        ),
-        types.KeyboardButton(
-            text="Выбрать супергруппу с форумами",
-            request_chat=types.KeyboardButtonRequestChat(
-                request_id=2,
-                chat_is_channel=False,
-                chat_is_forum=True
-            )
+
+    # Чтобы иметь возможность показать ID-кнопку,
+    # У юзера должен быть False флаг has_private_forwards
+    user_id = 1234567890
+    chat_info = await bot.get_chat(user_id)
+    if not chat_info.has_private_forwards:
+        builder.row(types.InlineKeyboardButton(
+            text="Какой-то пользователь",
+            url=f"tg://user?id={user_id}")
         )
-    )
-    # WebApp-ов пока нет, сорри :(
 
     await message.answer(
-        "Выберите действие:",
-        reply_markup=builder.as_markup(resize_keyboard=True),
+        'Выберите ссылку',
+        reply_markup=builder.as_markup(),
     )
+
+
+
+
+
+
+
+
+
+
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
