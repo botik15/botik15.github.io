@@ -106,6 +106,34 @@ async def echo_with_time(message: Message):
 
 
 
+
+
+
+
+@dp.message(F.text)
+async def extract_data(message: Message):
+    data = {
+        "url": "<N/A>",
+        "email": "<N/A>",
+        "code": "<N/A>"
+    }
+    entities = message.entities or []
+    for item in entities:
+        if item.type in data.keys():
+            # Неправильно
+            # data[item.type] = message.text[item.offset : item.offset+item.length]
+            # Правильно
+            data[item.type] = item.extract_from(message.text)
+    await message.reply(
+        "Вот что я нашёл:\n"
+        f"URL: {html.quote(data['url'])}\n"
+        f"E-mail: {html.quote(data['email'])}\n"
+        f"Пароль: {html.quote(data['code'])}"
+    )
+
+
+
+
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot,mylist=[1, 2, 3])
