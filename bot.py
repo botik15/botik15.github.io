@@ -92,16 +92,16 @@ async def cmd_advanced_example(message: Message):
 
 
 
-# новый импорт!
-from datetime import datetime
-@dp.message(F.text)
-async def echo_with_time(message: Message):
-    # Получаем текущее время в часовом поясе ПК
-    time_now = datetime.now().strftime('%H:%M')
-    # Создаём подчёркнутый текст
-    added_text = html.underline(f"Создано в {time_now}")
-    # Отправляем новое сообщение с добавленным текстом
-    await message.answer(f"{message.md_text}\n\n{added_text}", parse_mode="HTML")
+# # новый импорт!
+# from datetime import datetime
+# @dp.message(F.text)
+# async def echo_with_time(message: Message):
+#     # Получаем текущее время в часовом поясе ПК
+#     time_now = datetime.now().strftime('%H:%M')
+#     # Создаём подчёркнутый текст
+#     added_text = html.underline(f"Создано в {time_now}")
+#     # Отправляем новое сообщение с добавленным текстом
+#     await message.answer(f"{message.md_text}\n\n{added_text}", parse_mode="HTML")
 
 
 
