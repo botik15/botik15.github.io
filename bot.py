@@ -17,32 +17,47 @@ dp = Dispatcher()
 
 
 
-@dp.message(F.text.lower() == "с пюрешкой")
-async def with_puree(message: types.Message):
-    await message.reply("Отличный выбор!", reply_markup=types.ReplyKeyboardRemove())
+# @dp.message(F.text.lower() == "с пюрешкой")
+# async def with_puree(message: types.Message):
+#     await message.reply("Отличный выбор!", reply_markup=types.ReplyKeyboardRemove())
 
-@dp.message(F.text.lower() == "без пюрешки")
-async def without_puree(message: types.Message):
-    await message.reply("Так невкусно!", reply_markup=types.ReplyKeyboardRemove())
-
-
-@dp.message(Command("start"))
-async def cmd_start(message: types.Message):
-    kb = [
-        [
-            types.KeyboardButton(text="С пюрешкой"),
-            types.KeyboardButton(text="Без пюрешки")
-        ],
-    ]
-    keyboard = types.ReplyKeyboardMarkup(
-        keyboard=kb,
-        resize_keyboard=True,
-        input_field_placeholder="Выберите способ подачи"
-    )
-    await message.answer("Как подавать котлеты?", reply_markup=keyboard)
+# @dp.message(F.text.lower() == "без пюрешки")
+# async def without_puree(message: types.Message):
+#     await message.reply("Так невкусно!", reply_markup=types.ReplyKeyboardRemove())
 
 
+# @dp.message(Command("start"))
+# async def cmd_start(message: types.Message):
+#     kb = [
+#         [
+#             types.KeyboardButton(text="С пюрешкой"),
+#             types.KeyboardButton(text="Без пюрешки")
+#         ],
+#     ]
+#     keyboard = types.ReplyKeyboardMarkup(
+#         keyboard=kb,
+#         resize_keyboard=True,
+#         input_field_placeholder="Выберите способ подачи"
+#     )
+#     await message.answer("Как подавать котлеты?", reply_markup=keyboard)
 
+
+
+
+
+
+# новый импорт!
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
+
+@dp.message(Command("reply_builder"))
+async def reply_builder(message: types.Message):
+    builder = ReplyKeyboardBuilder()
+    for i in range(1, 17):
+        builder.add(types.KeyboardButton(text=str(i)))
+    builder.adjust(4)
+    await message.answer(
+        "Выберите число:",
+        reply_markup=builder.as_markup(resize_keyboard=True),
 
 
 # Запуск процесса поллинга новых апдейтов
