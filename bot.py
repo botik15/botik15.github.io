@@ -15,7 +15,7 @@ bot = Bot(token=config.bot_token.get_secret_value(), parse_mode="HTML")
 # Диспетчер
 dp = Dispatcher()
  
- @dp.message(Command("start"))
+@dp.message(Command("start"))
 async def cmd_start(message: types.Message):
     kb = [
         [types.KeyboardButton(text="С пюрешкой")],
