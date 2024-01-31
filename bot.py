@@ -25,12 +25,26 @@ async def any_message(message: Message):
     await message.answer("Сообщение с <u>HTML-разметкой</u>")
     await message.answer("Сообщение без <s>какой-либо разметки</s>",parse_mode=None)
 
+
+
+
+
+
+
 @dp.message(Command("hello"))
 async def cmd_hello(message: Message):
     await message.answer(
         f"Hello, <b>{message.from_user.full_name}</b>",
         parse_mode=ParseMode.HTML
     )
+
+
+
+
+
+
+
+
 
 @dp.message(Command("hello"))
 async def cmd_hello(message: Message):
@@ -39,6 +53,42 @@ async def cmd_hello(message: Message):
         parse_mode=ParseMode.HTML
     )
 
+
+
+
+
+
+
+from aiogram.utils.formatting import (
+    Bold, as_list, as_marked_section, as_key_value, HashTag
+)
+
+@dp.message(Command("advanced_example"))
+async def cmd_advanced_example(message: Message):
+    content = as_list(
+        as_marked_section(
+            Bold("Success:"),
+            "Test 1",
+            "Test 3",
+            "Test 4",
+            marker="✅ ",
+        ),
+        as_marked_section(
+            Bold("Failed:"),
+            "Test 2",
+            marker="❌ ",
+        ),
+        as_marked_section(
+            Bold("Summary:"),
+            as_key_value("Total", 4),
+            as_key_value("Success", 3),
+            as_key_value("Failed", 1),
+            marker="  ",
+        ),
+        HashTag("#test"),
+        sep="\n\n",
+    )
+    await message.answer(**content.as_kwargs())
 
 
 
