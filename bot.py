@@ -24,6 +24,24 @@ dp = Dispatcher()
 async def any_message(message: Message):
     await message.answer("Сообщение с <u>HTML-разметкой</u>")
     await message.answer("Сообщение без <s>какой-либо разметки</s>",parse_mode=None)
+
+@dp.message(Command("hello"))
+async def cmd_hello(message: Message):
+    await message.answer(
+        f"Hello, <b>{message.from_user.full_name}</b>",
+        parse_mode=ParseMode.HTML
+    )
+
+
+
+
+
+
+
+
+
+
+
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot,mylist=[1, 2, 3])
