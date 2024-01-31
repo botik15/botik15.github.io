@@ -61,8 +61,8 @@ dp = Dispatcher()
 
 
 
-# # новый импорт!
-# from aiogram.utils.keyboard import ReplyKeyboardBuilder
+# новый импорт!
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 @dp.message(Command("special_buttons"))
 async def cmd_special_buttons(message: types.Message):
