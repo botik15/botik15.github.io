@@ -9,6 +9,8 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token="5985975773:AAEoB0jrr9Z0Jmt7vnELZvfAa9Bx4r_fiNI")
 # Диспетчер
 dp = Dispatcher()
+dp["started_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+await dp.start_polling(bot, mylist=[1, 2, 3])
 
 # Хэндлер на команду /start
 @dp.message(Command("start"))
@@ -28,7 +30,22 @@ async def cmd_test2(message: types.Message):
 @dp.message(Command("dice"))
 async def cmd_dice(message: types.Message):
     await message.answer_dice(emoji="🎲")
-    
+
+
+@dp.message(Command("add_to_list"))
+async def cmd_add_to_list(message: types.Message, mylist: list[int]):
+    mylist.append(7)
+    await message.answer("Добавлено число 7")
+
+
+@dp.message(Command("show_list"))
+async def cmd_show_list(message: types.Message, mylist: list[int]):
+    await message.answer(f"Ваш список: {mylist}")
+
+
+@dp.message(Command("info"))
+async def cmd_info(message: types.Message, started_at: str):
+    await message.answer(f"Бот запущен {started_at}")
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot)
