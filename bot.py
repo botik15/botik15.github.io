@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from datetime import datetime
 from config_reader import config
-from aiogram import F
+from aiogram import F, html
 from aiogram.types import Message
 from aiogram.filters import Command
 from aiogram.enums import ParseMode
@@ -32,7 +32,12 @@ async def cmd_hello(message: Message):
         parse_mode=ParseMode.HTML
     )
 
-
+@dp.message(Command("hello"))
+async def cmd_hello(message: Message):
+    await message.answer(
+        f"Hello, {html.bold(html.quote(message.from_user.full_name))}",
+        parse_mode=ParseMode.HTML
+    )
 
 
 
