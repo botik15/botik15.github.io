@@ -51,11 +51,11 @@ async def cmd_show_list(message: types.Message, mylist: list[int]):
 @dp.message(Command("info"))
 async def cmd_info(message: types.Message, started_at: str):
     await message.answer(f"Бот запущен {started_at}")
-mylist=[1, 2, 3]
+
 
 # Запуск процесса поллинга новых апдейтов
-async def main(mylist):
-    await dp.start_polling(bot, mylist)
+async def main():
+    await dp.start_polling(bot,mylist=[1, 2, 3])
 
 if __name__ == "__main__":
     asyncio.run(main())
