@@ -36,6 +36,13 @@ async def cmd_dice(message: types.Message):
 
 
 
+
+
+
+
+
+
+
 dp["started_at"] = datetime.now().strftime("%Y-%m-%d %H:%M")
 
 @dp.message(Command("add_to_list"))
