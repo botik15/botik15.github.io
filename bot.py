@@ -183,7 +183,16 @@ async def callbacks_num(callback: types.CallbackQuery):
     await callback.answer()
 
 
+# Новые импорты!
+from contextlib import suppress
+from aiogram.exceptions import TelegramBadRequest
 
+async def update_num_text(message: types.Message, new_value: int):
+    with suppress(TelegramBadRequest):
+        await message.edit_text(
+            f"Укажите число: {new_value}",
+            reply_markup=get_keyboard()
+        )
 
 
 # Запуск процесса поллинга новых апдейтов
