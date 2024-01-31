@@ -13,7 +13,7 @@ from aiogram.enums import ParseMode
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
 # Объект бота
-bot = Bot(token=config.bot_token.get_secret_value())
+bot = Bot(token=config.bot_token.get_secret_value(), parse_mode="HTML")
 # Диспетчер
 dp = Dispatcher()
  
@@ -22,14 +22,8 @@ dp = Dispatcher()
 # то хэндлер сработает даже на картинку с подписью /test
 @dp.message(F.text, Command("test"))
 async def any_message(message: Message):
-    await message.answer(
-        "Hello, <b>world</b>!", 
-        parse_mode=ParseMode.HTML
-    )
-    await message.answer(
-        "Hello, *world*\!", 
-        parse_mode=ParseMode.MARKDOWN_V2
-    )
+    await message.answer("Сообщение с <u>HTML-разметкой</u>")
+    await message.answer("Сообщение без <s>какой-либо разметки</s>",parse_mode=None)
 # Запуск процесса поллинга новых апдейтов
 async def main():
     await dp.start_polling(bot,mylist=[1, 2, 3])
