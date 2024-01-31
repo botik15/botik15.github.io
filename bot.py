@@ -109,30 +109,57 @@ async def cmd_advanced_example(message: Message):
 
 
 
+# #фильтр слов
+# @dp.message(F.text)
+# async def extract_data(message: Message):
+#     data = {
+#         "url": "<N/A>",
+#         "email": "<N/A>",
+#         "code": "<N/A>"
+#     }
+#     entities = message.entities or []
+#     for item in entities:
+#         if item.type in data.keys():
+#             # Неправильно
+#             # data[item.type] = message.text[item.offset : item.offset+item.length]
+#             # Правильно
+#             data[item.type] = item.extract_from(message.text)
+#     await message.reply(
+#         "Вот что я нашёл:\n"
+#         f"URL: {html.quote(data['url'])}\n"
+#         f"E-mail: {html.quote(data['email'])}\n"
+#         f"Пароль: {html.quote(data['code'])}"
+#     )
 
-@dp.message(F.text)
-async def extract_data(message: Message):
-    data = {
-        "url": "<N/A>",
-        "email": "<N/A>",
-        "code": "<N/A>"
-    }
-    entities = message.entities or []
-    for item in entities:
-        if item.type in data.keys():
-            # Неправильно
-            # data[item.type] = message.text[item.offset : item.offset+item.length]
-            # Правильно
-            data[item.type] = item.extract_from(message.text)
-    await message.reply(
-        "Вот что я нашёл:\n"
-        f"URL: {html.quote(data['url'])}\n"
-        f"E-mail: {html.quote(data['email'])}\n"
-        f"Пароль: {html.quote(data['code'])}"
+
+
+@dp.message(Command("settimer"))
+async def cmd_settimer(
+        message: Message,
+        command: CommandObject
+):
+    # Если не переданы никакие аргументы, то
+    # command.args будет None
+    if command.args is None:
+        await message.answer(
+            "Ошибка: не переданы аргументы"
+        )
+        return
+    # Пробуем разделить аргументы на две части по первому встречному пробелу
+    try:
+        delay_time, text_to_send = command.args.split(" ", maxsplit=1)
+    # Если получилось меньше двух частей, вылетит ValueError
+    except ValueError:
+        await message.answer(
+            "Ошибка: неправильный формат команды. Пример:\n"
+            "/settimer <time> <message>"
+        )
+        return
+    await message.answer(
+        "Таймер добавлен!\n"
+        f"Время: {delay_time}\n"
+        f"Текст: {text_to_send}"
     )
-
-
-
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
