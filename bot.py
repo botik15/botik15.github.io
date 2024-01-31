@@ -18,7 +18,7 @@ async def cmd_start(message: types.Message):
 # Хэндлер на команду /test1
 @dp.message(Command("test1"))
 async def cmd_test1(message: types.Message):
-    await message.reply("Test 1")
+    await message.answer("Test 1")
 
 # Хэндлер на команду /test2 
 @dp.message(Command("test2"))
