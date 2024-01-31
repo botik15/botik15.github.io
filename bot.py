@@ -44,8 +44,6 @@ dp = Dispatcher()
 
 
 
-
-
 # новый импорт!
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
@@ -58,6 +56,7 @@ async def reply_builder(message: types.Message):
     await message.answer(
         "Выберите число:",
         reply_markup=builder.as_markup(resize_keyboard=True),
+    )
 
 
 # Запуск процесса поллинга новых апдейтов
