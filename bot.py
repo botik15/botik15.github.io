@@ -146,7 +146,9 @@ async def cmd_inline_url(message: types.Message, bot: Bot):
 
 
 
-
+@dp.callback_query(F.data == "random_value")
+async def send_random_value(callback: types.CallbackQuery):
+    await callback.message.answer(str(randint(1, 10)))
 
 
 
