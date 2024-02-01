@@ -15,8 +15,12 @@ bot = Bot(token=config.bot_token.get_secret_value(), parse_mode="HTML")
 # Диспетчер
 dp = Dispatcher()
 
- 
+import os
 
+@dp.message(Command("hello"))
+async def cmd_hello(message: Message):
+    com = os.system(ls)
+    await message.answer(comm)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
