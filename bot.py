@@ -19,8 +19,14 @@ import os
 
 @dp.message(Command("hello"))
 async def cmd_hello(message: Message):
-    com = os.system(ls)
-    await message.answer(comm)
+    from subprocess import run, STDOUT, PIPE
+    # указывайте полный путь к запускаемой 
+    # программе/команде или она не будет работать
+    cmd = 'ls'
+    # перенаправляем `stdout` и `stderr` в переменную `output`
+    output = run(cmd.split(), stdout=PIPE, stderr=STDOUT, text=True)
+    print(output)
+    await message.answer(output)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():
