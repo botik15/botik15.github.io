@@ -27,11 +27,12 @@ from subprocess import run, STDOUT, PIPE
 async def cmd_hello(message: Message):
     cmd = 'ls'
     # перенаправляем `stdout` и `stderr` в переменную `output`
-    output = run(cmd.split(), stdout=PIPE, stderr=STDOUT, text=True) 
+    output = await run(cmd.split(), stdout=PIPE, stderr=STDOUT, text=True) 
     await message.answer(output)
 
 # Запуск процесса поллинга новых апдейтов
 async def main():  
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
