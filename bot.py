@@ -22,12 +22,13 @@ from subprocess import run, STDOUT, PIPE
 # программе/команде или она не будет работать
 
 
+output = run(cmd.split(), stdout=PIPE, stderr=STDOUT, text=True) 
 
 @dp.message(Command("hello"))
 async def cmd_hello(message: Message):
     cmd = 'ls'
     # перенаправляем `stdout` и `stderr` в переменную `output`
-    await output = run(cmd.split(), stdout=PIPE, stderr=STDOUT, text=True) 
+    
     await message.answer(output)
 
 # Запуск процесса поллинга новых апдейтов
