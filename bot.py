@@ -31,8 +31,7 @@ async def cmd_hello(message: Message):
     await message.answer(output)
 
 # Запуск процесса поллинга новых апдейтов
-async def main(): 
-    await bot.delete_webhook(drop_pending_updates=True)
+async def main():  
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
